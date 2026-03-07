@@ -39,3 +39,6 @@ out/
 
 ### Mosquitto secrets ###
 **/mosquitto/password_file
+
+### Notes ###
+Notes-and-prompts/
