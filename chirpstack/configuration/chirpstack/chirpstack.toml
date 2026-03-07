@@ -129,6 +129,8 @@
   [integration.mqtt]
     server="tcp://$MQTT_BROKER_HOST:1883/"
     json=true
+    username="chirpstack_internal"
+    password="@MQTT_INTERNAL_PASSWORD@"
 
 [gateway]
   allow_unknown_gateways=true

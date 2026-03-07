@@ -198,9 +198,11 @@ services:
     image: eclipse-mosquitto:2
     restart: unless-stopped
     ports:
-      - 127.0.0.1:1883:1883
+      - 0.0.0.0:1883:1883
     volumes:
       - /helium/configuration/mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - /helium/configuration/mosquitto/acl.conf:/mosquitto/config/acl.conf
+      - /helium/configuration/mosquitto/password_file:/mosquitto/config/password_file
       - /helium/mosquitto:/mosquitto/data
     logging: *logs
 

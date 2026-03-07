@@ -327,6 +327,24 @@ if egrep "@DBPASSWORD@" /helium/configuration/postgresql/initdb/001-init-chirpst
   sed -i "s/@DBPASSWORD@/$DBPASSWORD/g" /helium/configuration/helium/configuration.properties
 fi
 
+if egrep "@MQTT_INTERNAL_PASSWORD@" /helium/configuration/chirpstack/chirpstack.toml > /dev/null ; then
+  cecho "Configuring MQTT authentication"
+  MQTT_INTERNAL_PASSWORD=`echo $RANDOM$RANDOM | md5sum | head -c 24`
+  MQTT_NODERED_PASSWORD=`echo $RANDOM$RANDOM | md5sum | head -c 24`
+  # Create hashed password file using mosquitto_passwd
+  docker run --rm eclipse-mosquitto:2 mosquitto_passwd -b -c /dev/stdout chirpstack_internal "$MQTT_INTERNAL_PASSWORD" > /helium/configuration/mosquitto/password_file
+  docker run --rm eclipse-mosquitto:2 mosquitto_passwd -b /dev/stdout nodered "$MQTT_NODERED_PASSWORD" >> /helium/configuration/mosquitto/password_file
+  # Replace placeholder in all config files
+  find /helium/configuration -name "*.toml" -exec sed -i "s/@MQTT_INTERNAL_PASSWORD@/$MQTT_INTERNAL_PASSWORD/g" {} +
+  echo ""
+  cecho "MQTT credentials generated:"
+  echo "  Internal user: chirpstack_internal (auto-configured)"
+  echo "  Node-RED user: nodered"
+  echo "  Node-RED password: $MQTT_NODERED_PASSWORD"
+  echo "  >> Save this password now - it is not stored anywhere <<"
+  echo ""
+fi
+
 if egrep "@CHIRPSECRET@" /helium/configuration/chirpstack/chirpstack.toml > /dev/null ; then
   cecho "Configuring chirpstack"
   getChirpSecret
