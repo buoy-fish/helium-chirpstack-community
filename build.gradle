@@ -41,6 +41,10 @@ dependencies {
 	implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.8.0'
 	implementation group: 'org.bouncycastle', name: 'bcprov-jdk18on', version: '1.83'
 	implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.13.0'
+	// Cloudflare Access Shim (ADR-0002): RS256 validation of
+	// Cf-Access-Jwt-Assertion against the team's remote JWKS. jjwt has no
+	// remote-JWKS support; Nimbus is what Spring Security wraps internally.
+	implementation group: 'com.nimbusds', name: 'nimbus-jose-jwt', version: '9.37.3'
 	implementation group: 'org.flywaydb', name: 'flyway-core', version: '11.20.2'
 	implementation group: 'com.stripe', name:'stripe-java', version:'29.5.0'
 	implementation group: 'org.apache.pdfbox', name:'pdfbox', version:'3.0.5'
@@ -54,7 +58,7 @@ dependencies {
 	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.13.0'
 	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.13.0'
     runtimeOnly group: 'org.flywaydb', name: 'flyway-database-postgresql', version: '11.20.2'
-    //testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 
