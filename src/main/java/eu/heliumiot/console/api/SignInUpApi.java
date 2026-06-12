@@ -58,6 +58,58 @@ public class SignInUpApi {
     @Autowired
     protected PrometeusService prometeusService;
 
+    @Autowired
+    protected eu.heliumiot.console.service.AccessShimService accessShimService;
+
+
+    @Operation(summary = "Cloudflare Access walk-in",
+            description = "Exchange the Cf-Access-Jwt-Assertion header (injected by"
+                    + " Cloudflare Access at the edge, buoy-services ADR-0002) for a"
+                    + " console bearer. Match-only: 404 when the verified email has no"
+                    + " console account — the login page then falls back to the normal"
+                    + " form. Walk-in sessions carry no chirpstack bearer (only the"
+                    + " chirpstack migration screen needs one; use password login for it).",
+            responses = {
+                    @ApiResponse(responseCode = "200", description= "Done", content = @Content(schema = @Schema(implementation = LoginRespItf.class))),
+                    @ApiResponse(responseCode = "403", description= "Forbidden", content = @Content(schema = @Schema(implementation = ActionResult.class))),
+                    @ApiResponse(responseCode = "404", description= "No console account", content = @Content(schema = @Schema(implementation = ActionResult.class)))
+            }
+    )
+    @RequestMapping(value="/access",
+            produces = MediaType.APPLICATION_JSON_VALUE,
+            method= RequestMethod.GET)
+    public ResponseEntity<?> requestAccessWalkIn(
+            HttpServletRequest request
+    ) {
+        long startMs = Now.NowUtcMs();
+        try {
+            String accessJwt = request.getHeader("Cf-Access-Jwt-Assertion");
+            eu.heliumiot.console.service.AccessShimService.ExchangeResult ex =
+                    accessShimService.exchangeForConsoleBearer(accessJwt);
+            LoginRespItf r = new LoginRespItf();
+            r.setConsoleBearer(ex.consoleBearer());
+            r.setChirpstackBearer("");
+            r.setAdmin(ex.admin());
+            // T&C re-acceptance surfaces on password login only
+            r.setUserConditionChanged(false);
+            prometeusService.addUserTotalLogin();
+            log.info("Access walk-in granted");
+            return new ResponseEntity<>(r, HttpStatus.OK);
+        } catch (eu.heliumiot.console.service.AccessShimService.NoConsoleAccount x) {
+            // cleared the wall, no account — login page falls back to the form
+            return new ResponseEntity<>(ActionResult.NOTFOUND(), HttpStatus.NOT_FOUND);
+        } catch (eu.heliumiot.console.service.AccessJwtVerifier.InvalidAccessJwt x) {
+            prometeusService.addApiTotalError();
+            return new ResponseEntity<>(ActionResult.FORBIDDEN(), HttpStatus.FORBIDDEN);
+        } catch (Exception x) {
+            log.warn("Access walk-in failed: " + x.getMessage());
+            prometeusService.addApiTotalError();
+            return new ResponseEntity<>(ActionResult.BADREQUEST(), HttpStatus.BAD_REQUEST);
+        } finally {
+            prometeusService.addApiTotalTimeMs(startMs);
+        }
+    }
+
 
     @Operation(summary = "Sign-in endpoint",
             description = "Authenticate on back-end and in chirpstack, get both token",

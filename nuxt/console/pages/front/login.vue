@@ -190,11 +190,31 @@ export default Vue.extend({
             this.$router.push('/front/lostpass');
         }
     },
-    mounted() {
+    async mounted() {
         this.$store.commit('setChirpstackBearer', '');
         localStorage.setItem('token', '');
         this.$store.commit('setConsoleBearer', '');
         this.$store.commit('setUserAdmin',false);
+
+        // Cloudflare Access walk-in (buoy-services ADR-0002): behind the
+        // tunnel, every request carries Cf-Access-Jwt-Assertion — try
+        // exchanging it for a console session before showing the form.
+        // 404 = cleared the wall but no console account (match-only);
+        // 403 = no/invalid Access JWT (e.g. local dev). Either way we
+        // fall back silently to the normal login form. Walk-in sessions
+        // carry no chirpstackBearer — only the chirpstack migration
+        // screen needs one; password login covers that case.
+        try {
+            const resp = await this.$axios.get((process.env.API_HOST || '')+'/console/1.0/sign/access');
+            if ( resp != null && resp.data != null && resp.data.consoleBearer ) {
+                this.$store.commit('setConsoleBearer', resp.data.consoleBearer);
+                this.$store.commit('setUserAdmin', resp.data.admin);
+                await this.$auth.setUserToken(resp.data.consoleBearer);
+                this.$router.push('/front/');
+            }
+        } catch (err) {
+            // no walk-in available — normal login form
+        }
     }
 })
 

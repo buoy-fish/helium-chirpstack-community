@@ -290,6 +290,13 @@ public class ConsoleConfig {
     @Value ("${helium.billing.vat.message9:}")
     private String heliumBillingVatMessage9;
 
+    @Value("${helium.invoice.recovered.packets:false}")
+    private boolean heliumInvoiceRecoveredPackets;
+
+
+    public boolean isHeliumInvoiceRecoveredPackets() {
+        return heliumInvoiceRecoveredPackets;
+    }
 
     public int getHeliumBillingDcPunishment() {
         return heliumBillingDcPunishment;
@@ -954,6 +961,20 @@ public class ConsoleConfig {
     @Value ("${helium.tenant.dc.alarm:10000}")
     private int heliumTenantDcAlarm;
 
+    @Value("${helium.logs.enable:false}")
+    private boolean heliumLogsEnable;
+
+    @Value("${helium.logs.gateway.list:}")
+    private String heliumLogsGatewayList;
+
+
+    public String getHeliumLogsGatewayList() {
+        return heliumLogsGatewayList;
+    }
+
+    public boolean isHeliumLogsEnable() {
+        return heliumLogsEnable;
+    }
 
     public boolean isStatReportEnable() {
         if (!statReportEnable.isEmpty()) {
@@ -995,5 +1016,42 @@ public class ConsoleConfig {
 
     public int getHeliumCacheDeviceStat() {
         return heliumCacheDeviceStat;
+    }
+
+    // ==============================
+    // Cloudflare Access Shim (walk-in SSO, buoy-services ADR-0002)
+    // ==============================
+    @Value ("${helium.cf.access.team.domain.default}")
+    private String cfAccessTeamDomainDefault;
+
+    @Value ("${helium.cf.access.team.domain:}")
+    private String cfAccessTeamDomainExternal;
+
+    @Value ("${helium.cf.access.audience.default}")
+    private String cfAccessAudienceDefault;
+
+    @Value ("${helium.cf.access.audience:}")
+    private String cfAccessAudienceExternal;
+
+    @Value ("${helium.cf.access.session.ms.default}")
+    private long cfAccessSessionMsDefault;
+
+    @Value ("${helium.cf.access.session.ms:0}")
+    private long cfAccessSessionMsExternal;
+
+    public String getCfAccessTeamDomain() {
+        if (!cfAccessTeamDomainExternal.isEmpty()) return cfAccessTeamDomainExternal;
+        return cfAccessTeamDomainDefault;
+    }
+
+    /** The Access application's aud tag; empty = Shim disabled. */
+    public String getCfAccessAudience() {
+        if (!cfAccessAudienceExternal.isEmpty()) return cfAccessAudienceExternal;
+        return cfAccessAudienceDefault;
+    }
+
+    public long getCfAccessSessionMs() {
+        if (cfAccessSessionMsExternal > 0) return cfAccessSessionMsExternal;
+        return cfAccessSessionMsDefault;
     }
 }
