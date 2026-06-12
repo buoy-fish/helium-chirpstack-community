@@ -54,10 +54,11 @@ public class AccessShimServiceTest {
         when(users.findActiveByEmail("jameson@buoy.fish"))
                 .thenReturn(new AccessShimService.ConsoleIdentity("uuid-jameson", MEMBER_KEY, false));
 
-        String bearer = shim.exchangeForConsoleBearer("access-jwt");
+        AccessShimService.ExchangeResult r = shim.exchangeForConsoleBearer("access-jwt");
 
-        assertEquals("uuid-jameson", subjectOf(bearer));
-        assertEquals(List.of("ROLE_USER"), rolesOf(bearer));
+        assertEquals("uuid-jameson", subjectOf(r.consoleBearer()));
+        assertEquals(List.of("ROLE_USER"), rolesOf(r.consoleBearer()));
+        assertFalse(r.admin());
         verify(users, never()).provisionFromEmail(anyString());
     }
 
@@ -67,7 +68,9 @@ public class AccessShimServiceTest {
         when(users.findActiveByEmail("jameson@buoy.fish"))
                 .thenReturn(new AccessShimService.ConsoleIdentity("uuid-jameson", MEMBER_KEY, true));
 
-        assertEquals(List.of("ROLE_USER", "ROLE_ADMIN"), rolesOf(shim.exchangeForConsoleBearer("access-jwt")));
+        AccessShimService.ExchangeResult r = shim.exchangeForConsoleBearer("access-jwt");
+        assertEquals(List.of("ROLE_USER", "ROLE_ADMIN"), rolesOf(r.consoleBearer()));
+        assertTrue(r.admin());
     }
 
     @Test
@@ -77,9 +80,9 @@ public class AccessShimServiceTest {
         when(users.provisionFromEmail("newbie@buoy.fish"))
                 .thenReturn(new AccessShimService.ConsoleIdentity("uuid-new", MEMBER_KEY, false));
 
-        String bearer = shim.exchangeForConsoleBearer("access-jwt");
+        AccessShimService.ExchangeResult r = shim.exchangeForConsoleBearer("access-jwt");
 
-        assertEquals("uuid-new", subjectOf(bearer));
+        assertEquals("uuid-new", subjectOf(r.consoleBearer()));
         verify(users).provisionFromEmail("newbie@buoy.fish");
     }
 

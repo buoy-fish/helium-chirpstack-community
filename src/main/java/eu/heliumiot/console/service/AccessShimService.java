@@ -51,13 +51,17 @@ public class AccessShimService {
         this.ttlMs = ttlMs;
     }
 
+    /** What the login page needs to establish the walk-in session. */
+    public record ExchangeResult(String consoleBearer, boolean admin) {}
+
     /**
      * @return a freshly minted console bearer for the Access-verified visitor
      * @throws AccessJwtVerifier.InvalidAccessJwt if the header is not a
      *         genuine Access JWT for this application
-     * @throws Exception if provisioning a new user fails
+     * @throws NoConsoleAccount when the visitor cleared Access but has no
+     *         console account (match-only store)
      */
-    public String exchangeForConsoleBearer(String accessJwt) throws Exception {
+    public ExchangeResult exchangeForConsoleBearer(String accessJwt) throws Exception {
         String email = verifier.verifiedEmail(accessJwt);
         ConsoleIdentity id = users.findActiveByEmail(email);
         if (id == null) {
@@ -66,7 +70,8 @@ public class AccessShimService {
         List<String> roles = id.admin()
                 ? List.of(UserService.ROLE_USER, UserService.ROLE_ADMIN)
                 : List.of(UserService.ROLE_USER);
-        return ConsoleBearerMinter.mint(
+        String bearer = ConsoleBearerMinter.mint(
                 id.userid(), roles, new Date(System.currentTimeMillis() + ttlMs), id.signingKey());
+        return new ExchangeResult(bearer, id.admin());
     }
 }
