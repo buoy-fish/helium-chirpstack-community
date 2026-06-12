@@ -23,6 +23,7 @@ public class AccessShimServiceTest {
 
     static final long TTL = 3_600_000L;
     static final Key MEMBER_KEY = Keys.hmacShaKeyFor(new byte[64]);
+    static final String CS_SECRET = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQ=";
 
     AccessJwtVerifier verifier;
     AccessShimService.ConsoleUsers users;
@@ -32,7 +33,7 @@ public class AccessShimServiceTest {
     void setup() {
         verifier = mock(AccessJwtVerifier.class);
         users = mock(AccessShimService.ConsoleUsers.class);
-        shim = new AccessShimService(verifier, users, TTL);
+        shim = new AccessShimService(verifier, users, TTL, CS_SECRET);
     }
 
     List<String> rolesOf(String bearer) {
@@ -92,5 +93,23 @@ public class AccessShimServiceTest {
 
         assertThrows(AccessJwtVerifier.InvalidAccessJwt.class, () -> shim.exchangeForConsoleBearer("bad"));
         verifyNoInteractions(users);
+    }
+
+    @Test
+    void exchangeAlsoMintsAChirpstackBearerForTheSameUser() throws Exception {
+        when(verifier.verifiedEmail("access-jwt")).thenReturn("jameson@buoy.fish");
+        when(users.findActiveByEmail("jameson@buoy.fish"))
+                .thenReturn(new AccessShimService.ConsoleIdentity("uuid-jameson", MEMBER_KEY, false));
+
+        AccessShimService.ExchangeResult r = shim.exchangeForConsoleBearer("access-jwt");
+
+        assertNotNull(r.chirpstackBearer());
+        Claims c = Jwts.parser()
+                .verifyWith((javax.crypto.SecretKey) Keys.hmacShaKeyFor(
+                        CS_SECRET.getBytes(java.nio.charset.StandardCharsets.UTF_8)))
+                .build().parseSignedClaims(r.chirpstackBearer()).getPayload();
+        assertEquals("chirpstack", c.getIssuer());
+        assertEquals("uuid-jameson", c.getSubject());
+        assertEquals("user", c.get("typ"));
     }
 }

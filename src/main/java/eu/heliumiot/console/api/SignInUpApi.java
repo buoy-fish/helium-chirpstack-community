@@ -88,7 +88,7 @@ public class SignInUpApi {
                     accessShimService.exchangeForConsoleBearer(accessJwt);
             LoginRespItf r = new LoginRespItf();
             r.setConsoleBearer(ex.consoleBearer());
-            r.setChirpstackBearer("");
+            r.setChirpstackBearer(ex.chirpstackBearer());
             r.setAdmin(ex.admin());
             // T&C re-acceptance surfaces on password login only
             r.setUserConditionChanged(false);
