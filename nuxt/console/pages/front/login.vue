@@ -207,6 +207,11 @@ export default Vue.extend({
         try {
             const resp = await this.$axios.get((process.env.API_HOST || '')+'/console/1.0/sign/access');
             if ( resp != null && resp.data != null && resp.data.consoleBearer ) {
+                // store BOTH tokens exactly as password login does — the SPA
+                // talks to chirpstack directly with chirpstackBearer
+                let chBearer = resp.data.chirpstackBearer;
+                this.$store.commit('setChirpstackBearer', chBearer);
+                localStorage.setItem("token", chBearer);
                 this.$store.commit('setConsoleBearer', resp.data.consoleBearer);
                 this.$store.commit('setUserAdmin', resp.data.admin);
                 await this.$auth.setUserToken(resp.data.consoleBearer);

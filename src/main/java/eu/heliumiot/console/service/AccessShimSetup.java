@@ -32,6 +32,11 @@ public class AccessShimSetup {
         }
         AccessJwtVerifier verifier =
                 AccessJwtVerifier.forTeam(config.getCfAccessTeamDomain(), audience);
-        return new AccessShimService(verifier, users, config.getCfAccessSessionMs());
+        if (config.getChirpstackApiSecret() == null || config.getChirpstackApiSecret().isBlank()) {
+            log.warn("chirpstack.api.secret not set — walk-in sessions will carry no "
+                    + "chirpstack bearer and device/gateway views will prompt for login");
+        }
+        return new AccessShimService(verifier, users, config.getCfAccessSessionMs(),
+                config.getChirpstackApiSecret());
     }
 }

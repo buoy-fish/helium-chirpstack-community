@@ -44,15 +44,20 @@ public class AccessShimService {
     private final AccessJwtVerifier verifier;
     private final ConsoleUsers users;
     private final long ttlMs;
+    private final String chirpstackApiSecret;
 
-    public AccessShimService(AccessJwtVerifier verifier, ConsoleUsers users, long ttlMs) {
+    public AccessShimService(AccessJwtVerifier verifier, ConsoleUsers users, long ttlMs,
+                             String chirpstackApiSecret) {
         this.verifier = verifier;
         this.users = users;
         this.ttlMs = ttlMs;
+        this.chirpstackApiSecret = chirpstackApiSecret;
     }
 
-    /** What the login page needs to establish the walk-in session. */
-    public record ExchangeResult(String consoleBearer, boolean admin) {}
+    /** What the login page needs to establish the walk-in session: the
+     *  console's own session token plus a ChirpStack user token (the SPA
+     *  talks to ChirpStack directly for device/gateway views). */
+    public record ExchangeResult(String consoleBearer, String chirpstackBearer, boolean admin) {}
 
     /**
      * @return a freshly minted console bearer for the Access-verified visitor
@@ -70,8 +75,13 @@ public class AccessShimService {
         List<String> roles = id.admin()
                 ? List.of(UserService.ROLE_USER, UserService.ROLE_ADMIN)
                 : List.of(UserService.ROLE_USER);
-        String bearer = ConsoleBearerMinter.mint(
-                id.userid(), roles, new Date(System.currentTimeMillis() + ttlMs), id.signingKey());
-        return new ExchangeResult(bearer, id.admin());
+        Date exp = new Date(System.currentTimeMillis() + ttlMs);
+        String consoleBearer = ConsoleBearerMinter.mint(
+                id.userid(), roles, exp, id.signingKey());
+        // The user's console id IS their ChirpStack user UUID (helium_user.userid
+        // == chirpstack user.id), so the same id mints the ChirpStack token.
+        String chirpstackBearer = ChirpstackBearerMinter.mint(
+                id.userid(), exp, chirpstackApiSecret);
+        return new ExchangeResult(consoleBearer, chirpstackBearer, id.admin());
     }
 }

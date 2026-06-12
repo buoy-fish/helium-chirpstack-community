@@ -1039,6 +1039,15 @@ public class ConsoleConfig {
     @Value ("${helium.cf.access.session.ms:0}")
     private long cfAccessSessionMsExternal;
 
+    // ChirpStack's api.secret (chirpstack.toml) — lets the Shim mint a
+    // ChirpStack user token for walk-in sessions (no password to run Login).
+    @Value ("${chirpstack.api.secret:}")
+    private String chirpstackApiSecret;
+
+    public String getChirpstackApiSecret() {
+        return chirpstackApiSecret;
+    }
+
     public String getCfAccessTeamDomain() {
         if (!cfAccessTeamDomainExternal.isEmpty()) return cfAccessTeamDomainExternal;
         return cfAccessTeamDomainDefault;
