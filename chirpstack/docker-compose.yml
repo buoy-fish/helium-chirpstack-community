@@ -43,7 +43,7 @@ services:
     logging: *logs
 
   chirpstack:
-    image: chirpstack/chirpstack:4.15.0
+    image: chirpstack/chirpstack:4.11.0
     command: -c /etc/chirpstack
     restart: unless-stopped
     volumes:
@@ -166,7 +166,7 @@ services:
     logging: *logs
 
   chirpstack-rest-api:
-    image: chirpstack/chirpstack-rest-api:4.15.0
+    image: chirpstack/chirpstack-rest-api:4.14.1
     restart: unless-stopped
     command: --server chirpstack:8080 --bind 0.0.0.0:8090 --insecure
     ports:
@@ -201,8 +201,11 @@ services:
       - 0.0.0.0:1883:1883
     volumes:
       - /helium/configuration/mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
-      - /helium/configuration/mosquitto/acl.conf:/mosquitto/config/acl.conf
+      # password_file + acl.conf were only in the container layer and vanished
+      # on recreate (2026-06-12 uplink outage: allow_anonymous false + missing
+      # pwfile = crash loop). Bind them so they survive future recreates.
       - /helium/configuration/mosquitto/password_file:/mosquitto/config/password_file
+      - /helium/configuration/mosquitto/acl.conf:/mosquitto/config/acl.conf
       - /helium/mosquitto:/mosquitto/data
     logging: *logs
 
@@ -238,7 +241,7 @@ services:
   mosquitto_exporter:
     image: sapcc/mosquitto-exporter:latest
     restart: unless-stopped
-    command: --endpoint tcp://mosquitto:1883 --user chirpstack_internal --pass @MQTT_INTERNAL_PASSWORD@
+    command: --endpoint tcp://mosquitto:1883 --user gateway --pass buoy
     ports:
       - 127.0.0.1:9101:9234
     depends_on:
