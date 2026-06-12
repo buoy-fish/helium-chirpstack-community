@@ -93,7 +93,7 @@ public class SignInUpApi {
             // T&C re-acceptance surfaces on password login only
             r.setUserConditionChanged(false);
             prometeusService.addUserTotalLogin();
-            log.info("Access walk-in granted");
+            log.info("Access walk-in granted (admin={})", ex.admin());
             return new ResponseEntity<>(r, HttpStatus.OK);
         } catch (eu.heliumiot.console.service.AccessShimService.NoConsoleAccount x) {
             // cleared the wall, no account — login page falls back to the form
@@ -102,7 +102,7 @@ public class SignInUpApi {
             prometeusService.addApiTotalError();
             return new ResponseEntity<>(ActionResult.FORBIDDEN(), HttpStatus.FORBIDDEN);
         } catch (Exception x) {
-            log.warn("Access walk-in failed: " + x.getMessage());
+            log.warn("Access walk-in failed: {}", x.toString());
             prometeusService.addApiTotalError();
             return new ResponseEntity<>(ActionResult.BADREQUEST(), HttpStatus.BAD_REQUEST);
         } finally {
