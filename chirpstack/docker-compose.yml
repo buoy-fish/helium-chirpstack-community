@@ -201,6 +201,11 @@ services:
       - 0.0.0.0:1883:1883
     volumes:
       - /helium/configuration/mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
+      # password_file + acl.conf were only in the container layer and vanished
+      # on recreate (2026-06-12 uplink outage: allow_anonymous false + missing
+      # pwfile = crash loop). Bind them so they survive future recreates.
+      - /helium/configuration/mosquitto/password_file:/mosquitto/config/password_file
+      - /helium/configuration/mosquitto/acl.conf:/mosquitto/config/acl.conf
       - /helium/mosquitto:/mosquitto/data
     logging: *logs
 
