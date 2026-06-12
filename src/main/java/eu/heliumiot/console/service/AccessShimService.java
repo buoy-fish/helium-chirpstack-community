@@ -24,6 +24,15 @@ public class AccessShimService {
      *  per-user signing key, and whether it carries ROLE_ADMIN. */
     public record ConsoleIdentity(String userid, Key signingKey, boolean admin) {}
 
+    /** The visitor cleared Access but has no console account. With a
+     *  match-only store this is the signal to fall back to the normal
+     *  login/signup page — not an error worth a stack trace. */
+    public static class NoConsoleAccount extends Exception {
+        public NoConsoleAccount(String message) {
+            super(message);
+        }
+    }
+
     /** The console user store, as the Shim needs it. */
     public interface ConsoleUsers {
         /** The active console user for this email, or null if none. */
