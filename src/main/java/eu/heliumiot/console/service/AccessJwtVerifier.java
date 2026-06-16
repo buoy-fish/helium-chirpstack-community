@@ -49,13 +49,27 @@ public class AccessJwtVerifier {
     }
 
     /**
+     * The Cloudflare Access JWKS (certs) endpoint for a team label. Kept
+     * deliberately separate from the issuer: on the buoy account the signing
+     * keys are served ONLY at the buoy-fish label, while every token is
+     * stamped with the (404-on-certs) royal-waterfall issuer. Deriving this
+     * URL from the issuer is the latent bug — see docs/HANDOFF-access-jwks-vs-iss.
+     */
+    static String certsUrl(String jwksDomain) {
+        return "https://" + jwksDomain + "/cdn-cgi/access/certs";
+    }
+
+    /**
      * Production wiring: remote JWKS with Nimbus' built-in caching and
      * rate-limiting, so Cloudflare key rotation is handled transparently.
+     * issuerDomain (the token's {@code iss}) and jwksDomain (where the signing
+     * keys live) are different labels of the SAME team on this account, so they
+     * are passed separately — never derive one from the other.
      */
-    public static AccessJwtVerifier forTeam(String teamDomain, String audience) throws Exception {
-        String iss = "https://" + teamDomain;
+    public static AccessJwtVerifier forTeam(String issuerDomain, String jwksDomain, String audience) throws Exception {
+        String iss = "https://" + issuerDomain;
         JWKSource<SecurityContext> remote = JWKSourceBuilder
-                .create(new URL(iss + "/cdn-cgi/access/certs"))
+                .create(new URL(certsUrl(jwksDomain)))
                 .retrying(true)
                 .build();
         return new AccessJwtVerifier(remote, iss, audience);

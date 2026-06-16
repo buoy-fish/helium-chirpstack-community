@@ -27,11 +27,13 @@ public class AccessShimSetup {
             log.info("Access Shim disabled — helium.cf.access.audience is not set");
             audience = DISABLED_SENTINEL;
         } else {
-            log.info("Access Shim enabled for team {} (aud {}…)",
-                    config.getCfAccessTeamDomain(), audience.substring(0, Math.min(8, audience.length())));
+            log.info("Access Shim enabled for team {} (jwks {}, aud {}…)",
+                    config.getCfAccessTeamDomain(), config.getCfAccessJwksDomain(),
+                    audience.substring(0, Math.min(8, audience.length())));
         }
         AccessJwtVerifier verifier =
-                AccessJwtVerifier.forTeam(config.getCfAccessTeamDomain(), audience);
+                AccessJwtVerifier.forTeam(config.getCfAccessTeamDomain(),
+                        config.getCfAccessJwksDomain(), audience);
         if (config.getChirpstackApiSecret() == null || config.getChirpstackApiSecret().isBlank()) {
             log.warn("chirpstack.api.secret not set — walk-in sessions will carry no "
                     + "chirpstack bearer and device/gateway views will prompt for login");
