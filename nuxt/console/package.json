@@ -18,8 +18,8 @@
     "@nuxtjs/i18n": "^7.3.0",
     "bootstrap": "^4.6.2",
     "bootstrap-vue": "^2.22.0",
-    "core-js": "^3.25.3",
-    "nuxt": "^2.15.8",
+    "core-js": "^3.49.0",
+    "nuxt": "^2.18.1",
     "nuxt-leaflet": "^0.0.27",
     "simple-code-editor": "^1.2.2",
     "vue": "^2.7.10",
@@ -30,16 +30,16 @@
   "devDependencies": {
     "@babel/eslint-parser": "^7.19.1",
     "@mapbox/leaflet-pip": "^1.1.0",
-    "@nuxt/types": "^2.15.8",
+    "@nuxt/types": "^2.18.1",
     "@nuxt/typescript-build": "^2.1.0",
     "@nuxtjs/eslint-config-typescript": "^11.0.0",
     "@nuxtjs/eslint-module": "^3.1.0",
-    "apexcharts": "^3.43.0",
     "eslint": "^8.24.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-nuxt": "^4.0.0",
     "eslint-plugin-vue": "^9.5.1",
     "prettier": "^2.7.1",
-    "vue-apexcharts": "^1.6.2"
+    "apexcharts": ">=4.0.0",
+    "vue-apexcharts": "^1.7.0"
   }
 }
