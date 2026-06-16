@@ -29,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 public class AccessJwtVerifierTest {
 
-    static final String ISSUER = "https://royal-waterfall-9e8e.cloudflareaccess.com";
+    static final String ISSUER = "https://buoy-fish.cloudflareaccess.com";
     static final String AUDIENCE = "db81f6eda2501216aaaabbbbccccdddd0000111122223333aaaabbbbcccc0000";
 
     static RSAKey teamKey;       // stands in for the Cloudflare team key
