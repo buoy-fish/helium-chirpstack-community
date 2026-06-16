@@ -9,6 +9,10 @@ export default {
   publicRuntimeConfig: {
     apiHost:process.env.API_HOST || '',
     chirpstackHost:(process.env.CHIRPSTACK_HOST || '' )+'/' || '/',
+    // Tenant the embedded ChirpStack UI should default to on a fresh session
+    // (empty = no default, i.e. stock behaviour). Set via DEFAULT_TENANT_ID at
+    // build time so the id is never hardcoded into the public fork.
+    defaultTenant:process.env.DEFAULT_TENANT_ID || '',
     consoleName:process.env.CONSOLE_NAME || 'HeliumConsole',
     dcbalanceEndpoint:(process.env.API_HOST || '')+'/console/1.0/tenant/balance',
     signupEndpoint:(process.env.API_HOST || '')+'/console/1.0/sign/up',
