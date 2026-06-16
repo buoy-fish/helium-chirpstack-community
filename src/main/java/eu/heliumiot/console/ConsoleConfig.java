@@ -1027,9 +1027,10 @@ public class ConsoleConfig {
     @Value ("${helium.cf.access.team.domain:}")
     private String cfAccessTeamDomainExternal;
 
-    // JWKS host — DIFFERENT label of the same team than the issuer above:
-    // tokens are stamped iss=team.domain (royal-waterfall) but signed by keys
-    // served only at this host (buoy-fish). See HANDOFF-access-jwks-vs-iss.
+    // JWKS host — its own knob, separate from the issuer (team.domain) above so
+    // the two can differ during a Cloudflare team-domain migration (iss on the
+    // old label, keys only on the new). Currently IDENTICAL — both buoy-fish,
+    // the rename being complete. See docs/HANDOFF-access-jwks-vs-iss.md.
     @Value ("${helium.cf.access.jwks.domain.default}")
     private String cfAccessJwksDomainDefault;
 

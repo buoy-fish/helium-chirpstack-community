@@ -116,10 +116,10 @@ public class AccessJwtVerifierTest {
 
     @Test
     void certsUrlFollowsJwksDomainNotIssuer() {
-        // This Cloudflare account has two labels for one team: tokens are
-        // stamped iss=royal-waterfall-9e8e… (whose /certs is 404), but are
-        // signed by keys served ONLY at buoy-fish… So the JWKS/certs URL must
-        // be built from the jwks domain, independently of the issuer domain.
+        // The certs URL must be built from the JWKS domain, independently of
+        // the issuer: during a Cloudflare team-domain migration the token iss
+        // can be one label while the signing keys are served only at another
+        // (the other label's /certs returns 404). This pins that decoupling.
         assertEquals(
                 "https://buoy-fish.cloudflareaccess.com/cdn-cgi/access/certs",
                 AccessJwtVerifier.certsUrl("buoy-fish.cloudflareaccess.com"));
