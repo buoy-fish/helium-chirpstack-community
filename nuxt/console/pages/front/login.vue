@@ -196,6 +196,15 @@ export default Vue.extend({
         this.$store.commit('setConsoleBearer', '');
         this.$store.commit('setUserAdmin',false);
 
+        // Default the embedded ChirpStack UI to our primary tenant on a fresh
+        // session. ChirpStack keeps the active tenant in localStorage['tenantId'];
+        // seeding it here (config-driven, never hardcoded) makes a clean
+        // walk-in/login land on the configured tenant instead of whatever
+        // ChirpStack sorts first. An existing selection is left untouched.
+        if (this.$config.defaultTenant && !localStorage.getItem('tenantId')) {
+            localStorage.setItem('tenantId', this.$config.defaultTenant);
+        }
+
         // Cloudflare Access walk-in (buoy-services ADR-0002): behind the
         // tunnel, every request carries Cf-Access-Jwt-Assertion — try
         // exchanging it for a console session before showing the form.
