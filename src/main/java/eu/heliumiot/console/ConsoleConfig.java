@@ -1027,6 +1027,15 @@ public class ConsoleConfig {
     @Value ("${helium.cf.access.team.domain:}")
     private String cfAccessTeamDomainExternal;
 
+    // JWKS host — DIFFERENT label of the same team than the issuer above:
+    // tokens are stamped iss=team.domain (royal-waterfall) but signed by keys
+    // served only at this host (buoy-fish). See HANDOFF-access-jwks-vs-iss.
+    @Value ("${helium.cf.access.jwks.domain.default}")
+    private String cfAccessJwksDomainDefault;
+
+    @Value ("${helium.cf.access.jwks.domain:}")
+    private String cfAccessJwksDomainExternal;
+
     @Value ("${helium.cf.access.audience.default}")
     private String cfAccessAudienceDefault;
 
@@ -1051,6 +1060,13 @@ public class ConsoleConfig {
     public String getCfAccessTeamDomain() {
         if (!cfAccessTeamDomainExternal.isEmpty()) return cfAccessTeamDomainExternal;
         return cfAccessTeamDomainDefault;
+    }
+
+    /** Host serving the Access signing keys (JWKS) — see field comment; this
+     *  is intentionally NOT the same as the issuer/team domain. */
+    public String getCfAccessJwksDomain() {
+        if (!cfAccessJwksDomainExternal.isEmpty()) return cfAccessJwksDomainExternal;
+        return cfAccessJwksDomainDefault;
     }
 
     /** The Access application's aud tag; empty = Shim disabled. */
