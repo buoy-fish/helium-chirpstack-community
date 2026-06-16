@@ -50,10 +50,10 @@ public class AccessJwtVerifier {
 
     /**
      * The Cloudflare Access JWKS (certs) endpoint for a team label. Kept
-     * deliberately separate from the issuer: on the buoy account the signing
-     * keys are served ONLY at the buoy-fish label, while every token is
-     * stamped with the (404-on-certs) royal-waterfall issuer. Deriving this
-     * URL from the issuer is the latent bug — see docs/HANDOFF-access-jwks-vs-iss.
+     * deliberately separate from the issuer: during a Cloudflare team-domain
+     * migration the token's iss can be one label while the signing keys are
+     * served only at another (the other label's /certs returns 404). Deriving
+     * this URL from the issuer is the latent bug — see docs/HANDOFF-access-jwks-vs-iss.
      */
     static String certsUrl(String jwksDomain) {
         return "https://" + jwksDomain + "/cdn-cgi/access/certs";
