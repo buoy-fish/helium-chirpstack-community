@@ -113,4 +113,15 @@ public class AccessJwtVerifierTest {
         assertThrows(AccessJwtVerifier.InvalidAccessJwt.class, () -> verifier.verifiedEmail(""));
         assertThrows(AccessJwtVerifier.InvalidAccessJwt.class, () -> verifier.verifiedEmail(null));
     }
+
+    @Test
+    void certsUrlFollowsJwksDomainNotIssuer() {
+        // The certs URL must be built from the JWKS domain, independently of
+        // the issuer: during a Cloudflare team-domain migration the token iss
+        // can be one label while the signing keys are served only at another
+        // (the other label's /certs returns 404). This pins that decoupling.
+        assertEquals(
+                "https://buoy-fish.cloudflareaccess.com/cdn-cgi/access/certs",
+                AccessJwtVerifier.certsUrl("buoy-fish.cloudflareaccess.com"));
+    }
 }

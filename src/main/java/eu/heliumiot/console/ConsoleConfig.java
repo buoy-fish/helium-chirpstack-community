@@ -1027,6 +1027,16 @@ public class ConsoleConfig {
     @Value ("${helium.cf.access.team.domain:}")
     private String cfAccessTeamDomainExternal;
 
+    // JWKS host — its own knob, separate from the issuer (team.domain) above so
+    // the two can differ during a Cloudflare team-domain migration (iss on the
+    // old label, keys only on the new). Currently IDENTICAL — both buoy-fish,
+    // the rename being complete. See docs/HANDOFF-access-jwks-vs-iss.md.
+    @Value ("${helium.cf.access.jwks.domain.default}")
+    private String cfAccessJwksDomainDefault;
+
+    @Value ("${helium.cf.access.jwks.domain:}")
+    private String cfAccessJwksDomainExternal;
+
     @Value ("${helium.cf.access.audience.default}")
     private String cfAccessAudienceDefault;
 
@@ -1051,6 +1061,13 @@ public class ConsoleConfig {
     public String getCfAccessTeamDomain() {
         if (!cfAccessTeamDomainExternal.isEmpty()) return cfAccessTeamDomainExternal;
         return cfAccessTeamDomainDefault;
+    }
+
+    /** Host serving the Access signing keys (JWKS) — see field comment; this
+     *  is intentionally NOT the same as the issuer/team domain. */
+    public String getCfAccessJwksDomain() {
+        if (!cfAccessJwksDomainExternal.isEmpty()) return cfAccessJwksDomainExternal;
+        return cfAccessJwksDomainDefault;
     }
 
     /** The Access application's aud tag; empty = Shim disabled. */
