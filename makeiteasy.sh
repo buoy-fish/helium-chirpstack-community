@@ -226,12 +226,6 @@ if ! grep PRETTY /etc/os-release | grep -i "ubuntu.*22" > /dev/null ; then
   esac
 fi
 
-# Add Yarn repo
-if [ ! -f /etc/apt/sources.list.d/yarn.list ] ; then
-  curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-  echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-fi
-
 # Make sure we are up-to-date
 cecho "Making sure your system is up-to-date"
 DEBIAN_FRONTEND=noninteractive apt update -qq >/dev/null 2>/dev/null
@@ -239,7 +233,7 @@ DEBIAN_FRONTEND=noninteractive apt upgrade -y -qq >/dev/null 2>/dev/null
 
 # Install the expected packages
 cecho "Installing required packages"
-for package in openjdk-21-jdk make build-essential libssl-dev pkg-config protobuf-compiler yarn ca-certificates curl gnupg npm; do
+for package in openjdk-21-jdk make build-essential libssl-dev pkg-config protobuf-compiler ca-certificates curl gnupg npm; do
   if ! dpkg -l | grep -q "^ii.*$package" ; then
     echo "[x] $package"
     DEBIAN_FRONTEND=noninteractive apt install $package -y -qq >/dev/null
