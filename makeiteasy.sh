@@ -328,8 +328,11 @@ if egrep "@MQTT_INTERNAL_PASSWORD@" /helium/configuration/chirpstack/chirpstack.
   # Create hashed password file using mosquitto_passwd
   docker run --rm eclipse-mosquitto:2 mosquitto_passwd -b -c /dev/stdout chirpstack_internal "$MQTT_INTERNAL_PASSWORD" > /helium/configuration/mosquitto/password_file
   docker run --rm eclipse-mosquitto:2 mosquitto_passwd -b /dev/stdout nodered "$MQTT_NODERED_PASSWORD" >> /helium/configuration/mosquitto/password_file
-  # Replace placeholder in all config files
-  find /helium/configuration -name "*.toml" -exec sed -i "s/@MQTT_INTERNAL_PASSWORD@/$MQTT_INTERNAL_PASSWORD/g" {} +
+  # Replace placeholder in all config files: region backends (*.toml), the console app
+  # (configuration.properties), and mosquitto_exporter creds in docker-compose.yml (outside
+  # /helium/configuration). All internal MQTT clients share the chirpstack_internal user.
+  find /helium/configuration \( -name "*.toml" -o -name "*.properties" \) -exec sed -i "s/@MQTT_INTERNAL_PASSWORD@/$MQTT_INTERNAL_PASSWORD/g" {} +
+  sed -i "s/@MQTT_INTERNAL_PASSWORD@/$MQTT_INTERNAL_PASSWORD/g" /helium/docker-compose.yml
   echo ""
   cecho "MQTT credentials generated:"
   echo "  Internal user: chirpstack_internal (auto-configured)"
@@ -409,6 +412,11 @@ fi
 
 
 # ready to run it !
+
+# Fix data directory permissions for containerized services
+# Grafana runs as UID 472, Prometheus runs as UID 65534 (nobody)
+chown -R 472:472 /helium/grafana/
+chown -R 65534:65534 /helium/prometheus/
 cecho "Installation completed"
 getPubKey
 cd /helium
