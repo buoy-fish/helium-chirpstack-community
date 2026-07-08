@@ -1,0 +1,142 @@
+========================================
+Join Chain Capture
+DevEUI:   70b3d57050012b6e
+Start:    2026-03-10 22:05:35 UTC
+Duration: 20m
+========================================
+
+--- Pre-capture: latest Redis events ---
+1773179898310-0
+join
+1773179278237-0
+join
+1773170697020-0
+join
+
+--- Pre-capture: gateway list (last_seen) ---
+
+--- Starting live capture (20m) ---
+Watching ChirpStack and gateway-bridge for 70b3d57050012b6e...
+
+[GWB] time="2026-03-10T22:05:40.413981035Z" level=info msg="integration/mqtt: downlink frame received" downlink_id=2358214716 gateway_id=89165f42461e96dc
+[GWB] time="2026-03-10T22:05:40.469171231Z" level=info msg="integration/mqtt: publishing event" event=ack qos=0 topic=us915_1/gateway/89165f42461e96dc/event/ack
+[GWB] time="2026-03-10T22:05:55.421754962Z" level=info msg="integration/mqtt: downlink frame received" downlink_id=2380128261 gateway_id=89165f42461e96dc
+[GWB] time="2026-03-10T22:05:55.477977031Z" level=info msg="integration/mqtt: publishing event" event=ack qos=0 topic=us915_1/gateway/89165f42461e96dc/event/ack
+[GWB] time="2026-03-10T22:06:10.407713619Z" level=info msg="integration/mqtt: downlink frame received" downlink_id=1867658529 gateway_id=89165f42461e96dc
+[GWB] time="2026-03-10T22:06:10.462886431Z" level=info msg="integration/mqtt: publishing event" event=ack qos=0 topic=us915_1/gateway/89165f42461e96dc/event/ack
+[GWB] time="2026-03-10T22:06:25.423186617Z" level=info msg="integration/mqtt: downlink frame received" downlink_id=1392245504 gateway_id=89165f42461e96dc
+[GWB] time="2026-03-10T22:06:25.478540907Z" level=info msg="integration/mqtt: publishing event" event=ack qos=0 topic=us915_1/gateway/89165f42461e96dc/event/ack
+[GWB] time="2026-03-10T22:06:44.178771919Z" level=info msg="integration/mqtt: downlink frame received" downlink_id=154933807 gateway_id=781082b1d53c1d09
+[GWB] time="2026-03-10T22:06:44.234249414Z" level=info msg="integration/mqtt: publishing event" event=ack qos=0 topic=us915_1/gateway/781082b1d53c1d09/event/ack
+[GWB] time="2026-03-10T22:06:55.41112565Z" level=info msg="integration/mqtt: downlink frame received" downlink_id=3009537748 gateway_id=781082b1d53c1d09
+[GWB] time="2026-03-10T22:06:55.467032911Z" level=info msg="integration/mqtt: publishing event" event=ack qos=0 topic=us915_1/gateway/781082b1d53c1d09/event/ack
+[GWB] time="2026-03-10T22:07:14.999625033Z" level=info msg="integration/mqtt: downlink frame received" downlink_id=3540246008 gateway_id=89165f42461e96dc
+[GWB] time="2026-03-10T22:07:15.055599248Z" level=info msg="integration/mqtt: publishing event" event=ack qos=0 topic=us915_1/gateway/89165f42461e96dc/event/ack
+[GWB] time="2026-03-10T22:07:25.385682095Z" level=info msg="integration/mqtt: downlink frame received" downlink_id=2174769285 gateway_id=89165f42461e96dc
+[GWB] time="2026-03-10T22:07:25.441223709Z" level=info msg="integration/mqtt: publishing event" event=ack qos=0 topic=us915_1/gateway/89165f42461e96dc/event/ack
+[GWB] time="2026-03-10T22:07:40.330471826Z" level=info msg="integration/mqtt: downlink frame received" downlink_id=2088499388 gateway_id=af8b2c69cdfc5384
+[GWB] time="2026-03-10T22:07:40.38608204Z" level=info msg="integration/mqtt: publishing event" event=ack qos=0 topic=us915_1/gateway/af8b2c69cdfc5384/event/ack
+[GWB] time="2026-03-10T22:07:40.404486848Z" level=info msg="integration/mqtt: downlink frame received" downlink_id=2785586431 gateway_id=89165f42461e96dc
+[GWB] time="2026-03-10T22:07:40.459891893Z" level=info msg="integration/mqtt: publishing event" event=ack qos=0 topic=us915_1/gateway/89165f42461e96dc/event/ack
+[GWB] time="2026-03-10T22:07:58.535178816Z" level=info msg="integration/mqtt: downlink frame received" downlink_id=1377923054 gateway_id=89165f42461e96dc
+[GWB] time="2026-03-10T22:07:58.59010929Z" level=info msg="integration/mqtt: publishing event" event=ack qos=0 topic=us915_1/gateway/89165f42461e96dc/event/ack
+[GWB] time="2026-03-10T22:08:09.247347315Z" level=info msg="integration/mqtt: downlink frame received" downlink_id=495637627 gateway_id=b7712252387df4da
+[GWB] time="2026-03-10T22:08:09.302398434Z" level=info msg="integration/mqtt: publishing event" event=ack qos=0 topic=us915_1/gateway/b7712252387df4da/event/ack
+[GWB] time="2026-03-10T22:08:10.412229873Z" level=info msg="integration/mqtt: downlink frame received" downlink_id=2505012715 gateway_id=89165f42461e96dc
+[GWB] time="2026-03-10T22:08:10.467099587Z" level=info msg="integration/mqtt: publishing event" event=ack qos=0 topic=us915_1/gateway/89165f42461e96dc/event/ack
+[GWB] time="2026-03-10T22:08:25.418333295Z" level=info msg="integration/mqtt: downlink frame received" downlink_id=2820418101 gateway_id=89165f42461e96dc
+[GWB] time="2026-03-10T22:08:25.474172162Z" level=info msg="integration/mqtt: publishing event" event=ack qos=0 topic=us915_1/gateway/89165f42461e96dc/event/ack
+[GWB] time="2026-03-10T22:08:59.457513999Z" level=info msg="integration/mqtt: downlink frame received" downlink_id=3231864966 gateway_id=89165f42461e96dc
+[GWB] time="2026-03-10T22:08:59.512809494Z" level=info msg="integration/mqtt: publishing event" event=ack qos=0 topic=us915_1/gateway/89165f42461e96dc/event/ack
+[GWB] time="2026-03-10T22:09:13.511186762Z" level=info msg="integration/mqtt: downlink frame received" downlink_id=1867550312 gateway_id=89165f42461e96dc
+[GWB] time="2026-03-10T22:09:13.56612056Z" level=info msg="integration/mqtt: publishing event" event=ack qos=0 topic=us915_1/gateway/89165f42461e96dc/event/ack
+[GWB] time="2026-03-10T22:09:25.391148934Z" level=info msg="integration/mqtt: downlink frame received" downlink_id=2559439428 gateway_id=89165f42461e96dc
+[GWB] time="2026-03-10T22:09:25.446090723Z" level=info msg="integration/mqtt: publishing event" event=ack qos=0 topic=us915_1/gateway/89165f42461e96dc/event/ack
+[GWB] time="2026-03-10T22:09:40.395801506Z" level=info msg="integration/mqtt: downlink frame received" downlink_id=193453183 gateway_id=89165f42461e96dc
+[GWB] time="2026-03-10T22:09:40.450880088Z" level=info msg="integration/mqtt: publishing event" event=ack qos=0 topic=us915_1/gateway/89165f42461e96dc/event/ack
+[GWB] time="2026-03-10T22:09:59.869094841Z" level=info msg="integration/mqtt: downlink frame received" downlink_id=2657481634 gateway_id=89165f42461e96dc
+[GWB] time="2026-03-10T22:09:59.924070967Z" level=info msg="integration/mqtt: publishing event" event=ack qos=0 topic=us915_1/gateway/89165f42461e96dc/event/ack
+[GWB] time="2026-03-10T22:10:10.380161279Z" level=info msg="integration/mqtt: downlink frame received" downlink_id=3707339957 gateway_id=89165f42461e96dc
+[GWB] time="2026-03-10T22:10:10.435427613Z" level=info msg="integration/mqtt: publishing event" event=ack qos=0 topic=us915_1/gateway/89165f42461e96dc/event/ack
+[GWB] time="2026-03-10T22:10:25.411301159Z" level=info msg="integration/mqtt: downlink frame received" downlink_id=378063471 gateway_id=89165f42461e96dc
+[GWB] time="2026-03-10T22:10:25.466601275Z" level=info msg="integration/mqtt: publishing event" event=ack qos=0 topic=us915_1/gateway/89165f42461e96dc/event/ack
+[GWB] time="2026-03-10T22:10:44.183540617Z" level=info msg="integration/mqtt: downlink frame received" downlink_id=1807613162 gateway_id=89165f42461e96dc
+[GWB] time="2026-03-10T22:10:44.238547121Z" level=info msg="integration/mqtt: publishing event" event=ack qos=0 topic=us915_1/gateway/89165f42461e96dc/event/ack
+[GWB] time="2026-03-10T22:10:55.392257724Z" level=info msg="integration/mqtt: downlink frame received" downlink_id=7616132 gateway_id=89165f42461e96dc
+[GWB] time="2026-03-10T22:10:55.44755412Z" level=info msg="integration/mqtt: publishing event" event=ack qos=0 topic=us915_1/gateway/89165f42461e96dc/event/ack
+[GWB] time="2026-03-10T22:11:10.41156664Z" level=info msg="integration/mqtt: downlink frame received" downlink_id=1542672493 gateway_id=89165f42461e96dc
+[GWB] time="2026-03-10T22:11:10.466567289Z" level=info msg="integration/mqtt: publishing event" event=ack qos=0 topic=us915_1/gateway/89165f42461e96dc/event/ack
+[GWB] time="2026-03-10T22:11:25.401108386Z" level=info msg="integration/mqtt: downlink frame received" downlink_id=3111117579 gateway_id=89165f42461e96dc
+[GWB] time="2026-03-10T22:11:25.456242035Z" level=info msg="integration/mqtt: publishing event" event=ack qos=0 topic=us915_1/gateway/89165f42461e96dc/event/ack
+[GWB] time="2026-03-10T22:11:40.429144161Z" level=info msg="integration/mqtt: downlink frame received" downlink_id=2826834859 gateway_id=89165f42461e96dc
+[GWB] time="2026-03-10T22:11:40.484130644Z" level=info msg="integration/mqtt: publishing event" event=ack qos=0 topic=us915_1/gateway/89165f42461e96dc/event/ack
+[GWB] time="2026-03-10T22:11:55.401368665Z" level=info msg="integration/mqtt: downlink frame received" downlink_id=1883433170 gateway_id=89165f42461e96dc
+[GWB] time="2026-03-10T22:11:55.456722162Z" level=info msg="integration/mqtt: publishing event" event=ack qos=0 topic=us915_1/gateway/89165f42461e96dc/event/ack
+[GWB] time="2026-03-10T22:12:10.423816121Z" level=info msg="integration/mqtt: downlink frame received" downlink_id=3284316261 gateway_id=781082b1d53c1d09
+[GWB] time="2026-03-10T22:12:10.480218023Z" level=info msg="integration/mqtt: publishing event" event=ack qos=0 topic=us915_1/gateway/781082b1d53c1d09/event/ack
+[GWB] time="2026-03-10T22:12:25.423621874Z" level=info msg="integration/mqtt: downlink frame received" downlink_id=4107413120 gateway_id=89165f42461e96dc
+[GWB] time="2026-03-10T22:12:25.478830449Z" level=info msg="integration/mqtt: publishing event" event=ack qos=0 topic=us915_1/gateway/89165f42461e96dc/event/ack
+[GWB] time="2026-03-10T22:12:40.401406121Z" level=info msg="integration/mqtt: downlink frame received" downlink_id=169449557 gateway_id=89165f42461e96dc
+[GWB] time="2026-03-10T22:12:40.456433727Z" level=info msg="integration/mqtt: publishing event" event=ack qos=0 topic=us915_1/gateway/89165f42461e96dc/event/ack
+[GWB] time="2026-03-10T22:12:55.394270651Z" level=info msg="integration/mqtt: downlink frame received" downlink_id=4003857803 gateway_id=89165f42461e96dc
+[GWB] time="2026-03-10T22:12:55.449337779Z" level=info msg="integration/mqtt: publishing event" event=ack qos=0 topic=us915_1/gateway/89165f42461e96dc/event/ack
+[GWB] time="2026-03-10T22:13:10.393574736Z" level=info msg="integration/mqtt: downlink frame received" downlink_id=1388664230 gateway_id=89165f42461e96dc
+[GWB] time="2026-03-10T22:13:10.448760381Z" level=info msg="integration/mqtt: publishing event" event=ack qos=0 topic=us915_1/gateway/89165f42461e96dc/event/ack
+[GWB] time="2026-03-10T22:13:25.429836042Z" level=info msg="integration/mqtt: downlink frame received" downlink_id=2639163305 gateway_id=89165f42461e96dc
+[GWB] time="2026-03-10T22:13:25.485455122Z" level=info msg="integration/mqtt: publishing event" event=ack qos=0 topic=us915_1/gateway/89165f42461e96dc/event/ack
+[GWB] time="2026-03-10T22:13:40.421344083Z" level=info msg="integration/mqtt: downlink frame received" downlink_id=1709663931 gateway_id=89165f42461e96dc
+[GWB] time="2026-03-10T22:13:40.477174928Z" level=info msg="integration/mqtt: publishing event" event=ack qos=0 topic=us915_1/gateway/89165f42461e96dc/event/ack
+[GWB] time="2026-03-10T22:14:00.281573284Z" level=info msg="integration/mqtt: downlink frame received" downlink_id=515336679 gateway_id=89165f42461e96dc
+[GWB] time="2026-03-10T22:14:00.33721816Z" level=info msg="integration/mqtt: publishing event" event=ack qos=0 topic=us915_1/gateway/89165f42461e96dc/event/ack
+[GWB] time="2026-03-10T22:14:10.383767371Z" level=info msg="integration/mqtt: downlink frame received" downlink_id=1835509227 gateway_id=89165f42461e96dc
+[GWB] time="2026-03-10T22:14:10.438987064Z" level=info msg="integration/mqtt: publishing event" event=ack qos=0 topic=us915_1/gateway/89165f42461e96dc/event/ack
+[GWB] time="2026-03-10T22:14:44.405338832Z" level=info msg="integration/mqtt: downlink frame received" downlink_id=2335688668 gateway_id=89165f42461e96dc
+[GWB] time="2026-03-10T22:14:44.460964914Z" level=info msg="integration/mqtt: publishing event" event=ack qos=0 topic=us915_1/gateway/89165f42461e96dc/event/ack
+[GWB] time="2026-03-10T22:15:00.113947577Z" level=info msg="integration/mqtt: downlink frame received" downlink_id=3925663728 gateway_id=89165f42461e96dc
+[GWB] time="2026-03-10T22:15:00.169150116Z" level=info msg="integration/mqtt: publishing event" event=ack qos=0 topic=us915_1/gateway/89165f42461e96dc/event/ack
+[GWB] time="2026-03-10T22:15:10.402956865Z" level=info msg="integration/mqtt: downlink frame received" downlink_id=171022571 gateway_id=89165f42461e96dc
+[GWB] time="2026-03-10T22:15:10.45821251Z" level=info msg="integration/mqtt: publishing event" event=ack qos=0 topic=us915_1/gateway/89165f42461e96dc/event/ack
+[GWB] time="2026-03-10T22:15:29.197378551Z" level=info msg="integration/mqtt: downlink frame received" downlink_id=2699851829 gateway_id=89165f42461e96dc
+[GWB] time="2026-03-10T22:15:29.252846597Z" level=info msg="integration/mqtt: publishing event" event=ack qos=0 topic=us915_1/gateway/89165f42461e96dc/event/ack
+[GWB] time="2026-03-10T22:15:40.433337314Z" level=info msg="integration/mqtt: downlink frame received" downlink_id=2933100160 gateway_id=89165f42461e96dc
+[GWB] time="2026-03-10T22:15:40.488590667Z" level=info msg="integration/mqtt: publishing event" event=ack qos=0 topic=us915_1/gateway/89165f42461e96dc/event/ack
+[GWB] time="2026-03-10T22:15:55.396702303Z" level=info msg="integration/mqtt: downlink frame received" downlink_id=1310565616 gateway_id=89165f42461e96dc
+[GWB] time="2026-03-10T22:15:55.451688853Z" level=info msg="integration/mqtt: publishing event" event=ack qos=0 topic=us915_1/gateway/89165f42461e96dc/event/ack
+[GWB] time="2026-03-10T22:16:13.768118115Z" level=info msg="integration/mqtt: downlink frame received" downlink_id=3733084930 gateway_id=89165f42461e96dc
+[GWB] time="2026-03-10T22:16:13.823822284Z" level=info msg="integration/mqtt: publishing event" event=ack qos=0 topic=us915_1/gateway/89165f42461e96dc/event/ack
+[GWB] time="2026-03-10T22:16:25.43640049Z" level=info msg="integration/mqtt: downlink frame received" downlink_id=160873243 gateway_id=781082b1d53c1d09
+[GWB] time="2026-03-10T22:16:25.492030188Z" level=info msg="integration/mqtt: publishing event" event=ack qos=0 topic=us915_1/gateway/781082b1d53c1d09/event/ack
+[GWB] time="2026-03-10T22:16:40.411547576Z" level=info msg="integration/mqtt: downlink frame received" downlink_id=2424427270 gateway_id=89165f42461e96dc
+[GWB] time="2026-03-10T22:16:40.467144943Z" level=info msg="integration/mqtt: publishing event" event=ack qos=0 topic=us915_1/gateway/89165f42461e96dc/event/ack
+[GWB] time="2026-03-10T22:16:59.790669877Z" level=info msg="integration/mqtt: downlink frame received" downlink_id=3173081599 gateway_id=89165f42461e96dc
+[GWB] time="2026-03-10T22:16:59.845662816Z" level=info msg="integration/mqtt: publishing event" event=ack qos=0 topic=us915_1/gateway/89165f42461e96dc/event/ack
+[GWB] time="2026-03-10T22:17:10.466472067Z" level=info msg="integration/mqtt: downlink frame received" downlink_id=517717101 gateway_id=781082b1d53c1d09
+[GWB] time="2026-03-10T22:17:10.521829026Z" level=info msg="integration/mqtt: publishing event" event=ack qos=0 topic=us915_1/gateway/781082b1d53c1d09/event/ack
+[GWB] time="2026-03-10T22:17:12.380119205Z" level=info msg="integration/mqtt: downlink frame received" downlink_id=4290143788 gateway_id=b7712252387df4da
+[GWB] time="2026-03-10T22:17:12.435449321Z" level=info msg="integration/mqtt: publishing event" event=ack qos=0 topic=us915_1/gateway/b7712252387df4da/event/ack
+[GWB] time="2026-03-10T22:17:25.390120023Z" level=info msg="integration/mqtt: downlink frame received" downlink_id=3903392423 gateway_id=89165f42461e96dc
+[GWB] time="2026-03-10T22:17:25.445377617Z" level=info msg="integration/mqtt: publishing event" event=ack qos=0 topic=us915_1/gateway/89165f42461e96dc/event/ack
+[GWB] time="2026-03-10T22:17:40.386471937Z" level=info msg="integration/mqtt: downlink frame received" downlink_id=81779172 gateway_id=89165f42461e96dc
+[GWB] time="2026-03-10T22:17:40.442607727Z" level=info msg="integration/mqtt: publishing event" event=ack qos=0 topic=us915_1/gateway/89165f42461e96dc/event/ack
+[GWB] time="2026-03-10T22:18:13.645458363Z" level=info msg="integration/mqtt: downlink frame received" downlink_id=837945683 gateway_id=89165f42461e96dc
+[GWB] time="2026-03-10T22:18:13.701072776Z" level=info msg="integration/mqtt: publishing event" event=ack qos=0 topic=us915_1/gateway/89165f42461e96dc/event/ack
+[GWB] time="2026-03-10T22:18:25.415681921Z" level=info msg="integration/mqtt: downlink frame received" downlink_id=1398469311 gateway_id=89165f42461e96dc
+[GWB] time="2026-03-10T22:18:25.470665066Z" level=info msg="integration/mqtt: publishing event" event=ack qos=0 topic=us915_1/gateway/89165f42461e96dc/event/ack
+[GWB] time="2026-03-10T22:18:40.391448848Z" level=info msg="integration/mqtt: downlink frame received" downlink_id=230610457 gateway_id=89165f42461e96dc
+[GWB] time="2026-03-10T22:18:40.447025583Z" level=info msg="integration/mqtt: publishing event" event=ack qos=0 topic=us915_1/gateway/89165f42461e96dc/event/ack
+[GWB] time="2026-03-10T22:18:55.434214212Z" level=info msg="integration/mqtt: downlink frame received" downlink_id=2300057919 gateway_id=89165f42461e96dc
+[GWB] time="2026-03-10T22:18:55.489171046Z" level=info msg="integration/mqtt: publishing event" event=ack qos=0 topic=us915_1/gateway/89165f42461e96dc/event/ack
+
+--- Post-capture: latest Redis events ---
+1773180489258-0
+join
+1773179898310-0
+join
+1773179278237-0
+join
+1773170697020-0
+join
+1773132768461-0
+join
+
+--- Capture complete ---
